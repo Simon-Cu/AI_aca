@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>学术图表多智能体工作台</title>
+    <meta
+      name="description"
+      content="面向图表理解与文献调研的多智能体 ReAct 工作台，支持流程可视化、历史线程和人工介入。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="thread-sidebar">
+        <div class="sidebar-header">
+          <p class="eyebrow">Academic Workflow</p>
+          <h1>学术图表多智能体工作台</h1>
+          <p class="sidebar-copy">回看历史任务、继续人工介入节点，或从新线程开始。</p>
+        </div>
+
+        <div class="sidebar-actions">
+          <button id="new-thread-button" type="button">新建线程</button>
+          <input id="thread-search" type="search" placeholder="搜索历史线程" />
+        </div>
+
+        <div id="thread-list" class="thread-list" aria-label="历史线程列表"></div>
+      </aside>
+
+      <main class="workspace">
+        <section class="chat-column">
+          <header class="workspace-header">
+            <div>
+              <p class="eyebrow">当前线程</p>
+              <h2 id="active-thread-title">新任务</h2>
+              <div class="thread-meta">
+                <span id="thread-status-text" class="status-chip neutral">准备就绪</span>
+                <code id="thread-id"></code>
+              </div>
+            </div>
+            <div class="header-actions">
+              <button id="rename-thread-button" type="button" class="ghost">重命名</button>
+              <button id="clear-thread-button" type="button" class="ghost danger">清空当前线程</button>
+            </div>
+          </header>
+
+          <section class="progress-card">
+            <div class="progress-copy">
+              <h3>执行进度</h3>
+              <p id="progress-summary">准备接收任务。</p>
+            </div>
+            <div id="light-progress" class="light-progress"></div>
+          </section>
+
+          <div id="upload-strip" class="upload-strip" hidden>
+            <span id="upload-name"></span>
+            <span id="upload-status"></span>
+          </div>
+
+          <div id="messages" class="messages" aria-live="polite"></div>
+
+          <form id="composer" class="composer">
+            <div class="composer-top">
+              <label class="upload-button">
+                <input id="file-input" type="file" accept="image/*" />
+                <span>上传图表</span>
+              </label>
+              <p class="composer-tip">支持纯图表解读、纯文献调研和图表 + 文献联合任务。</p>
+            </div>
+
+            <textarea
+              id="message-input"
+              rows="4"
+              placeholder="输入你的任务，例如：解读这张图；或请帮我找和这张图相关的论文。"
+            ></textarea>
+
+            <div class="composer-controls">
+              <label>
+                <span>返回文献数</span>
+                <input id="top-k-input" type="number" min="1" max="10" value="5" />
+              </label>
+              <label>
+                <span>最大步骤数</span>
+                <input id="max-steps-input" type="number" min="1" max="20" value="8" />
+              </label>
+              <button id="send-button" type="submit">开始执行</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="inspector">
+          <section class="inspector-section">
+            <div class="section-heading">
+              <h2>流水线拓扑</h2>
+              <p>不同任务会自动裁剪链路，绿色已完成，青色进行中，灰色待执行。</p>
+            </div>
+            <div id="pipeline-view" class="pipeline-view"></div>
+          </section>
+
+          <section class="inspector-section">
+            <div class="section-heading">
+              <h2>Trace 追踪</h2>
+              <p>按 Agent 阶段自动折叠。默认只展开当前执行节点。</p>
+            </div>
+            <div class="trace-filters" role="tablist" aria-label="Trace 筛选">
+              <button type="button" class="trace-filter is-active" data-filter="key">关键步骤</button>
+              <button type="button" class="trace-filter" data-filter="all">全部事件</button>
+              <button type="button" class="trace-filter" data-filter="error">错误/告警</button>
+            </div>
+            <div id="trace-groups" class="trace-groups"></div>
+          </section>
+
+          <section class="inspector-section">
+            <div class="section-heading">
+              <h2>共享状态</h2>
+              <p>任务、检索词、文献、证据与异常信息都放在同一块黑板上。</p>
+            </div>
+            <div id="state-view" class="state-view"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+        "academic_graph": "./app/graph/academic_graph.py:graph"
+    },
+    "env": ".env"
+}

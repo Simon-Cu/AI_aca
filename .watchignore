@@ -1,0 +1,37 @@
+# 1. Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# 2. uv 虚拟环境缓存（你用的 uv，必须加！）
+.venv/
+uv.lock
+*.uv/
+
+# 3. 日志 / 临时文件
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+*.temp
+
+# 4. 环境变量文件
+.env
+.env.*
+.gitignore
+
+# 5. IDE 文件（VSCode / PyCharm）
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# 6. LangGraph 临时文件
+.langgraph/
+*.langgraph

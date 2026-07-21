@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Data, model weights, outputs
+data/
+datasets/
+testdata/
+runs/
+outputs/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# IDE / system
+.vscode/
+.idea/
+db/
+.DS_Store
+Thumbs.db
+
+
+
+# Next静态构建产物
+
+app/static/__next/
+app/static/__next.*
+app/static/_not-found/
+app/static/_next/
+
+.langgraph_api/
